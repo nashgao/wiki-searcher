@@ -2,7 +2,7 @@ from flask import Flask
 from flask_jsonrpc import JSONRPC
 import json
 
-import wikipedia
+from wikipedia import wikipedia
 
 app = Flask(__name__)
 
