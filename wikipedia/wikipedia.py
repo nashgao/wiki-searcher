@@ -108,7 +108,7 @@ def search(query, results=10, suggestion=False):
         else:
             raise WikipediaException(raw_results['error']['info'])
 
-    search_results = (d['title'] for d in raw_results['query']['search'])
+    search_results = (d for d in raw_results['query']['search'])
 
     if suggestion:
         if raw_results['query'].get('searchinfo'):

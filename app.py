@@ -13,10 +13,11 @@ rpc = JSONRPC(app, '/', enable_web_browsable_api=True)
 @rpc.method('/api/wiki')
 def wiki(query: str) -> str:
     wikipedia.set_lang('en')
+    search = wikipedia.search(query)[0]
     return json.dumps(
         filterResult(
             wikipedia.page(
-                wikipedia.search(query)[0]
+                None, search['pageid']
             )))
 
 
@@ -24,7 +25,6 @@ def wiki(query: str) -> str:
 @rpc.method('/api/geo')
 def geo(lat: float, lon: float) -> str:
     wikipedia.set_lang('en')
-
     return json.dumps(
         filterResult(
             wikipedia.page(
@@ -44,4 +44,3 @@ def filterResult(result: wikipedia.WikipediaPage):
             except AttributeError:
                 continue
     return resultContainer
-
