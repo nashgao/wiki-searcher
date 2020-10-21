@@ -21,6 +21,18 @@ def wiki(query: str) -> str:
             )))
 
 
+@app.route('/wiki/title')
+@rpc.method('/wiki/title')
+def wikiByTitle(query: str) -> str:
+    wikipedia.set_lang('en')
+    search = wikipedia.search(query)[0]
+    return json.dumps(
+        filterResult(
+            wikipedia.page(
+                search['title']
+            )))
+
+
 @app.route('/geo')
 @rpc.method('/api/geo')
 def geo(lat: float, lon: float) -> str:
