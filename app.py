@@ -9,9 +9,10 @@ app = Flask(__name__)
 rpc = JSONRPC(app, '/', enable_web_browsable_api=True)
 
 
-@app.route('/wiki')
-@rpc.method('/api/wiki')
-def wiki(query: str) -> str:
+@app.route('/api/wiki/pageid')
+@rpc.method('/wiki/pageid')
+def pageid(query: str) -> str:
+    print(query)
     wikipedia.set_lang('en')
     search = wikipedia.search(query)[0]
     return json.dumps(
@@ -21,9 +22,9 @@ def wiki(query: str) -> str:
             )))
 
 
-@app.route('/wiki/title')
+@app.route('/api/wiki/title')
 @rpc.method('/wiki/title')
-def wikiByTitle(query: str) -> str:
+def title(query: str) -> str:
     wikipedia.set_lang('en')
     search = wikipedia.search(query)[0]
     return json.dumps(
